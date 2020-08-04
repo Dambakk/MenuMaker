@@ -37,7 +37,7 @@ fun MenuMakerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
 
     MaterialTheme(
             colors = colors,
-            typography = typography,
+            typography = ThemeTypography,
             shapes = shapes,
             content = content
     )

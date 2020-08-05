@@ -7,11 +7,14 @@ import androidx.compose.getValue
 import androidx.compose.setValue
 import androidx.compose.state
 import androidx.ui.core.Alignment
+import androidx.ui.core.ContextAmbient
 import androidx.ui.core.Modifier
 import androidx.ui.core.setContent
 import androidx.ui.foundation.Icon
 import androidx.ui.foundation.Text
+import androidx.ui.graphics.Color
 import androidx.ui.layout.*
+import androidx.ui.material.Divider
 import androidx.ui.material.IconButton
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.Surface
@@ -19,11 +22,12 @@ import androidx.ui.material.icons.Icons
 import androidx.ui.material.icons.filled.AccountCircle
 import androidx.ui.material.icons.filled.CalendarToday
 import androidx.ui.material.icons.filled.Home
-import androidx.ui.material.icons.filled.VerifiedUser
 import androidx.ui.material.icons.outlined.AccountCircle
 import androidx.ui.material.icons.outlined.CalendarToday
 import androidx.ui.material.icons.outlined.Home
 import androidx.ui.unit.dp
+import net.dambakk.menumaker.model.RecipeModel
+import net.dambakk.menumaker.screens.*
 import net.dambakk.menumaker.ui.MenuMakerTheme
 
 class MainActivity : AppCompatActivity() {
@@ -44,11 +48,18 @@ class MainActivity : AppCompatActivity() {
 fun AppContent() {
     var currentDestination by state<Destination> { Destination.Dashboard }
 
+    val onItemSelected : (DashboardItemModel?) -> Unit = {
+        currentDestination = Destination.RecipeDetails(it)
+    }
+
     Stack(modifier = Modifier.fillMaxSize()) {
-        when(currentDestination) {
-            Destination.Dashboard -> Dashboard(modifier = Modifier.padding(bottom = 64.dp))
-            Destination.Planning -> Text(text = "Planning")
-            Destination.Profile -> Text(text = "Profile")
+        Column(modifier = Modifier.padding(bottom = 64.dp)) {
+            when(currentDestination) {
+                is Destination.Dashboard -> Dashboard(onItemSelected)
+                is Destination.RecipeDetails -> RecipeDetailsScreen((currentDestination as Destination.RecipeDetails).recipe, { currentDestination = Destination.Dashboard} )
+                is Destination.Planning -> Planning()
+                is Destination.Profile -> Profile()
+            }
         }
         BottomBar(
             modifier = Modifier
@@ -78,7 +89,11 @@ private fun BottomBar(
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { navigateTo(Destination.Dashboard) }, modifier = spacePadding) {
                 if (currentDestination == Destination.Dashboard) {
-                    Icon(Icons.Filled.Home)
+                    Column {
+                        Icon(Icons.Filled.Home, modifier = Modifier.gravity(align = Alignment.CenterHorizontally))
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Divider(color = Color.White)
+                    }
                 } else {
                     Icon(Icons.Outlined.Home)
                 }
@@ -86,7 +101,11 @@ private fun BottomBar(
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { navigateTo(Destination.Planning) }, modifier = spacePadding) {
                 if (currentDestination == Destination.Planning) {
-                    Icon(Icons.Filled.CalendarToday)
+                    Column {
+                        Icon(Icons.Filled.CalendarToday, modifier = Modifier.gravity(align = Alignment.CenterHorizontally))
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Divider(color = Color.White)
+                    }
                 } else {
                     Icon(Icons.Outlined.CalendarToday)
                 }
@@ -94,7 +113,11 @@ private fun BottomBar(
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { navigateTo(Destination.Profile) }, modifier = spacePadding) {
                 if (currentDestination == Destination.Profile) {
-                    Icon(Icons.Filled.AccountCircle)
+                    Column {
+                        Icon(Icons.Filled.AccountCircle, modifier = Modifier.gravity(align = Alignment.CenterHorizontally))
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Divider(color = Color.White)
+                    }
                 } else {
                     Icon(Icons.Outlined.AccountCircle)
                 }
@@ -108,4 +131,5 @@ sealed class Destination {
     object Dashboard : Destination()
     object Planning : Destination()
     object Profile : Destination()
+    data class RecipeDetails(val recipe: DashboardItemModel?) : Destination()
 }

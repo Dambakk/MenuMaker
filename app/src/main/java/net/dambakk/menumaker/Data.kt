@@ -11,7 +11,7 @@ val pannekaker = RecipeModel(
 )
 
 val lasagne = RecipeModel(
-    name = "Lasagne",
+    name = "Lasagne med bacon",
     imageUrl = null,
     duration = "70 min",
     notes = null,

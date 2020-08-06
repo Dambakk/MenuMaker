@@ -1,18 +1,18 @@
 package net.dambakk.menumaker.ui
 
-import androidx.compose.Composable
-import androidx.ui.foundation.isSystemInDarkTheme
-import androidx.ui.material.MaterialTheme
-import androidx.ui.material.darkColorPalette
-import androidx.ui.material.lightColorPalette
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 
-private val DarkColorPalette = darkColorPalette(
+private val DarkColorPalette = darkColors(
         primary = purple200,
         primaryVariant = purple700,
         secondary = teal200
 )
 
-private val LightColorPalette = lightColorPalette(
+private val LightColorPalette = lightColors(
         primary = purple500,
         primaryVariant = purple700,
         secondary = teal200

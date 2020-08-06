@@ -2,16 +2,15 @@ package net.dambakk.menumaker.screens
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.compose.Composable
-import androidx.ui.core.ContextAmbient
-import androidx.ui.core.Modifier
-import androidx.ui.foundation.ScrollableColumn
-import androidx.ui.foundation.Text
-import androidx.ui.foundation.clickable
-import androidx.ui.layout.*
-import androidx.ui.material.Divider
-import androidx.ui.unit.dp
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.Text
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun Planning() {
